@@ -1,22 +1,15 @@
 package com.invertorsoft.academy.myjdbchomework.DAO;
 
 import com.invertorsoft.academy.myjdbchomework.model.Player;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.springframework.stereotype.Component;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Component
 public class PlayerDAO {
-    @Value("${spring.datasource.url}")
+
+ /*   @Value("${spring.datasource.url}")
     private String url;
 
     @Value("${spring.datasource.username}")
@@ -54,31 +47,22 @@ public class PlayerDAO {
             LOGGER.error("Problem with closing connection", e);
         }
     }
-
+*/
+/* var emf = Persistence.createEntityManagerFactory("default");
+    var em = emf.createEntityManager();
+    var player = em.find(Player.class, 1L);
+        em.close();
+        System.out.println(player);*/
 
     public Player showPlayer(Long id) {
-        Player player = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM players WHERE id = ?")) {
-
-            preparedStatement.setLong(1, id);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    player = new Player();
-                    player.setId(resultSet.getLong("id"));
-                    player.setPlayerFullName(resultSet.getString("playerfullname"));
-                    player.setNationality(resultSet.getString("nationality"));
-                    player.setShirtNumber(resultSet.getLong("shirtNumber"));
-                    player.setPlayerPosition(resultSet.getString("playerposition"));
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Error showing player", e);
-        }
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        EntityManager em = emf.createEntityManager();
+        Player player = em.find(Player.class, id);
+        em.close();
         return player;
     }
 
-    public void save(Player player) {
+/*    public void save(Player player) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO players (playerfullname, nationality, shirtnumber, playerposition) VALUES (?,?,?,?)")) {
 
             preparedStatement.setString(1, player.getPlayerFullName());
@@ -91,9 +75,9 @@ public class PlayerDAO {
         } catch (SQLException e) {
             LOGGER.error("Error saving player", e);
         }
-    }
+    }*/
 
-    public void updatePlayer(Long id, Player updatedPlayer) {
+/*    public void updatePlayer(Long id, Player updatedPlayer) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE players SET playerfullname=?, nationality=?, shirtnumber=?, playerposition=? WHERE id=?")) {
 
             preparedStatement.setString(1, updatedPlayer.getPlayerFullName());
@@ -107,9 +91,9 @@ public class PlayerDAO {
         } catch (SQLException e) {
             LOGGER.error("Error updating player", e);
         }
-    }
+    }*/
 
-    public void deletePlayer(Long id) {
+/*    public void deletePlayer(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM players WHERE id=?")) {
 
             preparedStatement.setLong(1, id);
@@ -118,5 +102,5 @@ public class PlayerDAO {
         } catch (SQLException e) {
             LOGGER.error("Error deleting player", e);
         }
-    }
+    }*/
 }
