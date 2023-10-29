@@ -16,7 +16,6 @@ import lombok.ToString;
 @Table(name = "players")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Player {
