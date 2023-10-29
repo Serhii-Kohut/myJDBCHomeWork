@@ -1,7 +1,6 @@
 package com.invertorsoft.academy.myjdbchomework.DAO;
 
 import com.invertorsoft.academy.myjdbchomework.model.Player;
-import jakarta.annotation.PreDestroy;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
