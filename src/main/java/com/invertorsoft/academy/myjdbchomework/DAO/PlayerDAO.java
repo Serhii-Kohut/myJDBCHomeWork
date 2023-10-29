@@ -55,9 +55,4 @@ public class PlayerDAO {
         em.close();
         emf.close();
     }
-
- /*   @PreDestroy
-    public void close() {
-        emf.close();
-    }*/
 }
