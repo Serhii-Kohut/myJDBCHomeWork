@@ -31,6 +31,7 @@ public class PlayerDAO {
     public void updatePlayer(Long id, Player updatedPlayer) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
         EntityManager em = emf.createEntityManager();
+
         em.getTransaction().begin();
 
         Player player = em.find(Player.class, id);
@@ -39,7 +40,9 @@ public class PlayerDAO {
         player.setShirtNumber(updatedPlayer.getShirtNumber());
         player.setPlayerPosition(updatedPlayer.getPlayerPosition());
 
+        em.persist(player);
         em.getTransaction().commit();
+
         em.close();
         emf.close();
     }

@@ -37,10 +37,13 @@ public class PlayerPositionDAO {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
+
         PlayerPosition playerPosition = em.find(PlayerPosition.class, id);
         playerPosition.setPosition(updatedPlayerPosition.getPosition());
 
+        em.persist(playerPosition);
         em.getTransaction().commit();
+
         em.close();
         emf.close();
     }
